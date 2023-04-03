@@ -1,0 +1,126 @@
+  <script>
+    //정규표현식 리터럴
+    let pattern = /a/;
+    //위에서 두 개의 슬러시 사이의 a를
+    //패턴이라고 하는 변수에 담아, 우리가 찾고자 하는 대상이 a
+    //라는것을 컴퓨터에게 알려주는 것이다.
+
+
+    //또 다른 방법
+    //우항의 정규표현식 이라는 객체를
+    //패턴 안에다가 저장하는 것이다.
+    //위와 아래의 우항은 서로 같다.
+    let pattern = new RegExp('a');
+
+
+    //작업의 대상을 찾아서,
+    //그 대상으로 어떤 작업을 할 것이냐. 이렇게 두 개의 스텝이 있다.
+    //필요로 하는 정보를 추출하고,(가령, url만 찾거나, 특정 문자열을 찾거나.)
+    //필요한 정보가 전체안에 존재하는지 테스트 하거나
+    //검색된, 필요한 정보를 다른 정보로 치환하는것.
+
+
+
+    //이것은, 내가 'a'를 찾겠다는 의지를 나타낸다.
+    let pattern = /a/;
+
+    //어디에서 그 'a'를 찾겠다고?
+    //바로 'abc' 라는 인자 안에서 찾겠다.
+    pattern.exec('abc');
+
+
+
+    //a.이라는 걸 찾겠다. a뒤의 점은 하나의 문자를 나타낸다.
+    //'a뒤에 하나의 문자열이 오는 정보'를 찾겠다는 말.
+
+    var pattern = /a./;
+
+    pattern.exec('abcde');
+
+    //실행결과는 ["ab"] 가 된다.
+
+
+
+    //pattern 뒤에 exec 는 어떤 인자로 하여금 특정 정보를 찾아서,
+    //있으면 배열로 나타내 주고, 찾는 정보가 없으면 null값을 준다.
+    //pattern 뒤에 test는 원하는 정보가 있으면 불린으로 표현되는 리턴값으로,
+    //트루. 찾는 정보가 없으면 펄스를 출력한다.
+    
+    var pattern = /a/;
+
+    pattern.exec('bcdef');
+    null 이 출력됨
+
+    pattern.test('abcde');
+    true
+
+    pattern.test('bcde');
+    false
+    
+
+
+
+    //문자열 메소드 실행
+    //String.match() ; RegExp.exec()와 비슷하다.
+    console.log('abcdef'.match(pattern)); //["a"]
+    consolt.log('bcdefg'.match(pattern)); //null
+
+
+     
+    //String.replace() ; 리플레이스 메소드 사용법.
+    //문자열에서  패턴을 검색해서 이를 변경한 후에 변경된 값을 리턴한다.
+
+    var str = 'abcdef';
+
+    str.replace(pattern, 'A'); 
+    //str에서 패턴인 a를 찾아서 A로 바꾼후에 출력.
+    // Abcdef 출력됨.
+
+
+
+
+    //옵션.
+    //정규표현식 패턴을 만들 때 옵션을 설정할 수 있다.
+    //옵션에 따라서 검출되는 데이터가 달라진다.
+
+
+
+    //i를 붙이면 대소문자를 구분하지 않는다.
+      var xi = /a/;   //xi 는 i 를 사용하지 않겠다는 말.
+      console.log("Abcde".match(xi));
+       null
+      
+      var oi = /a/i;  //oi는 i를 사용하겠다는 말.
+                      //즉, 소문자 a를 입력했지만, 대문자A도 찾아라
+      console.log("Abcde".match(oi));
+      ['A', index: 0, input: 'Abcde', groups: undefined]
+
+
+
+      //g(글로벌을 뜻함.)를 붙이면 검색된 모든 결과를 리턴한다.
+      var xg = /a/;
+      "abcdea".match(xg);
+
+      ['a'] //a가 맨앞 맨뒤 두 번 나오는 데도 출력은 한 번만 됨.
+
+      //다르게 해보자. g를 붙여서.
+      var og = /a/g;
+      "abcdea".match(og);
+
+      ['a', 'a']  //검색된 두 개의 a를 모두 출력함.
+
+
+      
+
+
+      //캡쳐
+      //괄호안의 패턴은 마치 변수처럼 재사용할 수 있다. 이 때 기호 $를
+      //사용하는데 아래 코드는 존과 스미스의 순서를 역전시킨다.
+
+      var pattern = /(\w+)\s(\w+)/;
+      var str = "coding everyday";
+      var result = str.replace(pattern, "$2, $1"); //$2는 두번째 그룹을 의미.
+      console.log(result);
+
+      //everyday, coding 으로 순서를 역전해서 출력함.
+  </script>
